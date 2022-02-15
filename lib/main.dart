@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:push_notification/redPage.dart';
 import 'package:push_notification/greenPage.dart';
 
@@ -55,7 +56,18 @@ class _MyHomePageState extends State<MyHomePage> {
     // TODO: implement initState
     super.initState();
 
-    FirebaseMessaging.instance.getInitialMessage();//make onMessage work properly
+  //give you the message on which user taps
+  //openthe app from terminated state 
+    FirebaseMessaging.instance.getInitialMessage().then((message){
+
+if(message !=null){//in here message can be null, non null value 
+
+   final routeFromMessage=message.data["route"];//fetch the route (firebase messageing custom data add route like red)
+   Navigator.of(context).pushNamed(routeFromMessage); // this will push you to one of route that you spesified in firebase like red
+
+}
+       
+    });//make onMessage work properly
 
     //foreground not in the background (only in app)
     FirebaseMessaging.onMessage.listen((message) { 
