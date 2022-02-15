@@ -4,10 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:push_notification/redPage.dart';
 import 'package:push_notification/greenPage.dart';
 
-
+//top level
+//resive message when app is in the backGround
+//works in background on applecation where there open or close
+Future<void> backGroundHandler(RemoteMessage message)async{
+print(message.data.toString());//data
+print(message.notification!.title);//tilte
+}
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
  await Firebase.initializeApp();
+
+//it should be top level  not inside the class becouse its working in it's own tred
+ FirebaseMessaging.onBackgroundMessage(backGroundHandler);
   runApp(const MyApp());
 }
 
@@ -63,7 +72,7 @@ if(message.notification !=null){
      final routeFromMessage=message.data["route"];//fetch the route (firebase messageing custom data add route like red)
 
       Navigator.of(context).pushNamed(routeFromMessage); // this will push you to one of route that you spesified in firebase like red
-    print(routeFromMessage);
+      print(routeFromMessage);
   });
   }
 
