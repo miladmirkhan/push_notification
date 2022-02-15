@@ -1,9 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:push_notification/redPage.dart';
 import 'package:push_notification/greenPage.dart';
 
 
-void main() {
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+ await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -40,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(padding: EdgeInsets.all(18.0),
-      child: Center(child: Text("This is the redPage",style: TextStyle(fontSize: 45),),),)
+      child: Center(child: Text("This is the homePage",style: TextStyle(fontSize: 45),),),)
     );
   }
 }
