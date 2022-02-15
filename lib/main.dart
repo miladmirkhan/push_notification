@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:push_notification/redPage.dart';
 import 'package:push_notification/greenPage.dart';
@@ -39,6 +40,23 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    FirebaseMessaging.instance.getInitialMessage();//make onMessage work properly
+
+    //foreground not in the background (only in app)
+    FirebaseMessaging.onMessage.listen((message) { 
+if(message.notification !=null){
+      print(message.notification!.body);//we add null check becouse it can be null (shows the body)
+      print(message.notification!.title);// (shows the title)
+}
+    }); //stream that may contain data we have to listen
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
