@@ -55,6 +55,14 @@ if(message.notification !=null){
       print(message.notification!.title);// (shows the title)
 }
     }); //stream that may contain data we have to listen
+
+   FirebaseMessaging.onMessageOpenedApp.listen((message) {//use when user tab on the notification (have to codition when app inbackground and open, and user tab on notification)
+     //app in background 
+    //user tab the notification
+     final routeFromMessage=message.data["route"];
+     
+    print(routeFromMessage);
+  });
   }
 
   @override
