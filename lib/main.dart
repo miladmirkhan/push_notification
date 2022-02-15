@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:push_notification/redPage.dart';
 import 'package:push_notification/greenPage.dart';
+import 'package:push_notification/services/local_notification_dervice.dart';
 
 //top level
 //resive message when app is in the backGround
@@ -14,6 +15,7 @@ print(message.notification!.title);//tilte
 }
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
+  LocalNotification.initialize();
  await Firebase.initializeApp();
 
 //it should be top level  not inside the class becouse its working in it's own tred
@@ -75,6 +77,8 @@ if(message.notification !=null){
       print(message.notification!.body);//we add null check becouse it can be null (shows the body)
       print(message.notification!.title);// (shows the title)
 }
+
+  LocalNotification.display(message);//display the notification as head up notification
     }); //stream that may contain data we have to listen
     
                       //app in background
